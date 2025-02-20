@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_253503_Kudosh.UI.Pages.ProjectsPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="ProjectsPage"
+             xmlns:models="clr-namespace:_253503_Kudosh.UI.ViewModels"
+             x:DataType="models:ProjectsViewModel"
+             xmlns:entities="clr-namespace:_253503_Kudosh.Domain.Entities;assembly=253503_Kudosh.Domain"
+             xmlns:converters="clr-namespace:_253503_Kudosh.UI.ValueConverters"
+             >
+    <ContentPage.Resources>
+        <converters:PercentageToColorValueConverter x:Key="PercentageToColorConverter" />
+        <converters:ImageIdToImageSourceConverter x:Key="ImageIdToImageSourceConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+            Command="{Binding UpdateProjectsListCommand}"/>
+    </ContentPage.Behaviors>
+    <VerticalStackLayout>
+        <Picker ItemsSource="{Binding Projects}"
+                SelectedItem="{Binding SelectedProject}">
+            <Picker.Behaviors>
+                <toolkit:EventToCommandBehavior 
+                    EventName="SelectedIndexChanged"
+                    Command="{Binding UpdateTasksListCommand}"/>
+            </Picker.Behaviors>
+            <Picker.ItemDisplayBinding>
+                <Binding Path="Name" />
+            </Picker.ItemDisplayBinding>
+        </Picker>
+        <HorizontalStackLayout  Margin="10">
+            <Label Text="Project Name: "/>
+            <Label Text="{Binding SelectedProject.Name}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout  Margin="10">
+            <Label Text="Project Creator: "/>
+            <Label Text="{Binding SelectedProject.Creator}"/>
+        </HorizontalStackLayout>
+        
+        <CollectionView ItemsSource="{Binding Tasks}" >
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entities:TaskEntity">
+                    <Frame BackgroundColor="Gray" Margin="10" CornerRadius="15">
+                        <HorizontalStackLayout>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type models:ProjectsViewModel}}, Path=ShowDetailsCommand}"
+                      CommandParameter="{Binding .}" />
+                        </HorizontalStackLayout.GestureRecognizers>
+                            <Image Source="{Binding Id, Converter={StaticResource ImageIdToImageSourceConverter}}" HeightRequest="100" WidthRequest="50"/>
+                            <Label Text="{Binding Name}"
+                               Margin="5"
+                               TextColor="{Binding Percentage, Converter={StaticResource PercentageToColorConverter}}"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding Percentage}"
+                               TextColor="{Binding Percentage, Converter={StaticResource PercentageToColorConverter}}"
+                               VerticalOptions="Center"/>
+                        <Label Text="%"
+                               TextColor="{Binding Percentage, Converter={StaticResource PercentageToColorConverter}}"
+                               VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Frame>
+                </DataTemplate>
+                
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>_253503_Kudosh.Domain</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="Resources\dotnet_bot.png">
+      <Resize>True</Resize>
+      <BaseSize>300,185</BaseSize>
+    </None>
+  </ItemGroup>
+
+</Project>

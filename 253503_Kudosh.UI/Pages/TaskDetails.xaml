@@ -1,0 +1,46 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_253503_Kudosh.UI.Pages.TaskDetails"
+             xmlns:entities="clr-namespace:_253503_Kudosh.Domain.Entities;assembly=253503_Kudosh.Domain"
+             Title="TaskDetails"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:_253503_Kudosh.UI.ViewModels"
+             xmlns:converters="clr-namespace:_253503_Kudosh.UI.ValueConverters"
+             x:DataType="models:TaskDetailsViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageIdToImageSourceConverter x:Key="ImageIdToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior x:DataType="models:TaskDetailsViewModel" EventName="Loaded"
+            Command="{Binding UpdateTaskDetailsCommand}"/>
+    </ContentPage.Behaviors>
+    <VerticalStackLayout x:DataType="models:TaskDetailsViewModel" HorizontalOptions="Center">
+        <Image Source="{Binding Task.Id, Converter={StaticResource ImageIdToImageSourceConverter}}" HeightRequest="200" WidthRequest="200"/>
+        <Label Text="{Binding Task.Name}" FontSize="40" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+        <Label Text="{Binding Task.Description}" FontSize="20" HorizontalTextAlignment="Center"/>
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Label Text="{Binding Task.Percentage}" FontSize="20" />
+            <Label Text="%" FontSize="20"/>
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <VerticalStackLayout>
+                <Entry Text="{Binding NewName}"/>
+                <Button Text="Change name" Command="{Binding NameChangeButtonClickedCommand}"/>
+                <Label Text="{Binding NotifyNameString}" TextColor="{Binding NotifyNameStringColor}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Entry Text="{Binding NewDescription}" />
+                <Button Text="Change description" Command="{Binding DescriptionChangeButtonClickedCommand}"/>
+                <Label Text="{Binding NotifyDescriptionString}" TextColor="{Binding NotifyDescriptionStringColor}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Entry Text="{Binding NewPercentage}"/>
+                <Button Text="Change percentage" Command="{Binding PercentageChangeButtonClickedCommand}"/>
+                <Label Text="{Binding NotifyPercentageString}" TextColor="{Binding NotifyPercentageStringColor}"/>
+            </VerticalStackLayout>
+            <Button Text="Change image" Command="{Binding ImageChangeButtonClickedCommand}"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

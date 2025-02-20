@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_253503_Kudosh.UI.Pages.TaskAdding"
+             Title="TaskAdding"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models ="clr-namespace:_253503_Kudosh.UI.ViewModels"
+             x:DataType="models:TaskAddingViewModel">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+            Command="{Binding UpdateProjectsListCommand}"/>
+    </ContentPage.Behaviors>
+    <VerticalStackLayout>
+        <Label Text="Add Task" FontSize="20" HorizontalOptions="Center" Margin="0,20,0,10" />
+        <Label Text="Project:" />
+        <Picker ItemsSource="{Binding Projects}"
+        SelectedItem="{Binding SelectedProject}">
+            <Picker.ItemDisplayBinding>
+                <Binding Path="Name" />
+            </Picker.ItemDisplayBinding>
+        </Picker>
+        <Label Text="Task Name:" />
+        <Entry Text="{Binding TaskName}" />
+
+        <Label Text="Task Description:" />
+        <Entry Text="{Binding TaskDescription}" />
+
+        <Button Text="Add Task" Command="{Binding AddButtonClickedCommand}" HorizontalOptions="Center" Margin="0,20,0,0" />
+        <Label Text="{Binding NotifyString}" HorizontalOptions="Center" TextColor="{Binding NotifyStringColor}"/>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_253503_Kudosh.UI.Pages.ProjectAdding"
+             Title="ProjectAdding"
+             xmlns:models="clr-namespace:_253503_Kudosh.UI.ViewModels"
+             x:DataType="models:ProjectAddingViewModel">
+    <VerticalStackLayout>
+        <Label Text="Add Project" FontSize="20" HorizontalOptions="Center" Margin="0,20,0,10" />
+
+        <Label Text="Project Name:" />
+        <Entry Text="{Binding ProjectName}" />
+
+        <Label Text="Project Creator:" />
+        <Entry Text="{Binding ProjectCreator}" />
+
+        <Button Text="Add Project" Command="{Binding AddButtonClickedCommand}" HorizontalOptions="Center" Margin="0,20,0,0" />
+        <Label Text="{Binding NotifyString}" HorizontalOptions="Center" TextColor="{Binding NotifyStringColor}"/>
+    </VerticalStackLayout>
+</ContentPage>
